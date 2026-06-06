@@ -9,7 +9,7 @@ function AddNote({add}){
             onChange={(e)=> setval(e.target.value)}/>
 
             <button onClick= {()=> {
-                add(currval);
+                add({id: Date.now(), text: currval});
                 setval('');
 
             }}>Add</button>
