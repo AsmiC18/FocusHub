@@ -5,7 +5,10 @@ function App(){
 
   const [name,setName]= useState('');
 
-  const[notes,newnotes]=useState([]);
+  const [notes,newnotes]=useState([]);
+
+  const [currId,setId]=useState('');
+  const [currText, setText]=useState('');
 
   useEffect(()=>{
     const savedNotes = localStorage.getItem("notes");
@@ -20,8 +23,6 @@ function App(){
     const updated_notes= ([...notes,note]);
     newnotes(updated_notes)
     localStorage.setItem("notes", JSON.stringify(updated_notes));
-   
-  
   
   }
   
@@ -34,6 +35,28 @@ function App(){
     
 
    }
+
+   function handleEdit(note){
+    setId(note.id);
+    setText(note.text); 
+   }
+   
+   function handleTextChange(text){
+    setText(text);
+   }
+   function handleSave(){
+    console.log("saving")
+    const updated_notes= notes.map(note=> 
+       note.id === currId? { id: note.id, text: currText}
+       : {id: note.id, text: note.text}
+    )
+    
+    newnotes(updated_notes);
+    localStorage.setItem("notes", JSON.stringify(updated_notes));
+    setId('')
+    
+
+   }
   
   return (
     <div>
@@ -41,7 +64,16 @@ function App(){
     
      <input onChange={(e)=> setName(e.target.value)}/>
 
-     <Dashboard user= {name} notes={notes} del={handleDel}/>
+     <Dashboard
+      user= {name} 
+      notes={notes} 
+      del={handleDel} 
+      edit={handleEdit}
+      currId={currId}
+      currText={currText}
+      changeText={handleTextChange}
+      save={handleSave}
+      />
      <AddNote add={handleClick}/>
      
 
