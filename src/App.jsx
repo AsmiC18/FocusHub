@@ -1,6 +1,7 @@
 import Dashboard from './components/Dashboard.jsx'
 import {useState, useEffect} from 'react'
 import AddNote from './components/AddNote.jsx'
+import AddTask from './components/AddTask.jsx'
 import './App.css'
 function App(){
 
@@ -12,13 +13,20 @@ function App(){
   const [currId,setId]=useState('');
   const [currText, setText]=useState('');
 
+  const [tasks,newTasks]=useState([]);
+
   
 
   useEffect(()=>{
     const savedNotes = localStorage.getItem("notes");
+    const savedTasks= localStorage.getItem("tasks");
     if(savedNotes!==null){
       newnotes(JSON.parse(savedNotes))
     }
+    if(savedTasks!==null){
+      newTasks(JSON.parse(savedTasks));
+    }
+    
 
     
   },[])
@@ -67,7 +75,12 @@ function App(){
     setId('');
     setText('');
 
-    
+   }
+   function handleAddTask(Task){
+    const updated_tasks= [...tasks,Task];
+    newTasks(updated_tasks);
+    localStorage.setItem("tasks",JSON.stringify(updated_tasks))
+
    }
   
   
@@ -91,8 +104,12 @@ function App(){
       changeText={handleTextChange}
       save={handleSave}
       cancel={handleCancel}
+      tasks={tasks}
       />
      <AddNote add={handleClick}/>
+     <AddTask add={handleAddTask}/>
+
+     
      
 
     </div>
