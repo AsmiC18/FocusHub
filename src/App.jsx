@@ -1,14 +1,18 @@
 import Dashboard from './components/Dashboard.jsx'
 import {useState, useEffect} from 'react'
 import AddNote from './components/AddNote.jsx'
+import './App.css'
 function App(){
 
   const [name,setName]= useState('');
+ 
 
   const [notes,newnotes]=useState([]);
 
   const [currId,setId]=useState('');
   const [currText, setText]=useState('');
+
+  
 
   useEffect(()=>{
     const savedNotes = localStorage.getItem("notes");
@@ -50,6 +54,7 @@ function App(){
        note.id === currId? { id: note.id, text: currText}
        : {id: note.id, text: note.text}
     )
+
     
     newnotes(updated_notes);
     localStorage.setItem("notes", JSON.stringify(updated_notes));
@@ -57,12 +62,24 @@ function App(){
     
 
    }
+
+   function handleCancel(){
+    setId('');
+    setText('');
+
+    
+   }
+  
   
   return (
-    <div>
+    <div className="app">
       <h1>FocusHub</h1>
-    
-     <input onChange={(e)=> setName(e.target.value)}/>
+    <div>
+      Display Name:
+     <input 
+      onChange={(e)=> setName(e.target.value)}
+     />
+    </div>
 
      <Dashboard
       user= {name} 
@@ -73,6 +90,7 @@ function App(){
       currText={currText}
       changeText={handleTextChange}
       save={handleSave}
+      cancel={handleCancel}
       />
      <AddNote add={handleClick}/>
      

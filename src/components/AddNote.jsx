@@ -1,22 +1,41 @@
 import {useState} from 'react'
+
+
 function AddNote({add}){
     const [currval, setval]= useState('');
+    const[isAdding,setIsAdding]= useState(false);
 
-    return(
-        <div>
-            <input 
-            value={currval}
-            onChange={(e)=> setval(e.target.value)}/>
+    if(isAdding){
+        return(
+            <div>
+                <textarea
+                value={currval}
+                onChange={(e)=> setval(e.target.value)}
+                />
+                
+                <button className="button" onClick= {()=> {
+                    if(currval.trim()===''){
+                        return;
+                    }
+                    add({id: Date.now(), text: currval});
+                    setval('');
+                    setIsAdding(false);
 
-            <button onClick= {()=> {
-                add({id: Date.now(), text: currval});
-                setval('');
+                }}>Add</button>
+                <button className="button" onClick={()=> setIsAdding(false)}>Cancel</button>
 
-            }}>Add</button>
-        </div>
+            </div>
+            
         
-    
-    )
+        )
+    }
+    else{
+        return(
+            <div>
+        <button className="button" onClick={()=> setIsAdding(true)}>+ New Note</button>
+        </div>
+        )
+    }
 
 }
 
