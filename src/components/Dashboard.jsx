@@ -1,6 +1,7 @@
 import { FaTrash, FaEdit } from "react-icons/fa";
 
-function Dashboard({user,notes,del,edit,currId,currText,changeText,save,cancel,tasks}){
+function Dashboard({user,notes,del,edit,currId,currText,changeText,save,cancel,tasks,toggleStatus,delTask,editTask,
+    currTaskId,currTaskText,saveEditTask,changeTaskText,cancelEditTask}){
   
     return(
         <div className="dashboard">
@@ -56,10 +57,43 @@ function Dashboard({user,notes,del,edit,currId,currText,changeText,save,cancel,t
                     <h3>Tasks</h3>
                     
                    { tasks.map(task=>
-                   <li className="taskcard"key= {task.id}>
                     
-                        <input type="checkbox"/>
-                    {task.text}
+                    <li className="taskcard"
+                    key= {task.id}>
+                        
+                    {
+                        task.id==currTaskId ? 
+                        <div>
+                            <input 
+                            value={currTaskText}
+                            onChange= {(e)=> changeTaskText(e.target.value)}
+                            />
+                            <button onClick={()=> saveEditTask()}>Save</button>
+                            <button onClick={()=> cancelEditTask()}>Cancel</button>
+
+                        </div>
+                        :
+                        <>
+
+                        <div>
+                        <input type="checkbox" 
+                        checked={task.completed}
+                        onChange={()=>toggleStatus(task.id)}/>
+                        {task.text}
+                        </div>
+    
+
+                        
+
+                        <div className="icon">
+                            <button onClick={()=> delTask(task.id)}><FaTrash/></button>
+                            <button onClick={()=> editTask(task)}><FaEdit/></button>
+                        </div>
+                        </>
+                    }
+                        
+    
+                    
                         
                     </li>
                     )}
