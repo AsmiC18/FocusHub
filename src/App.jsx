@@ -14,6 +14,8 @@ function App(){
   const [currText, setText]=useState('');
 
   const [tasks,newTasks]=useState([]);
+  const[currTaskId,setTaskId]=useState('');
+  const[currTaskText,setTaskText]=useState('');
 
   
 
@@ -82,7 +84,52 @@ function App(){
     localStorage.setItem("tasks",JSON.stringify(updated_tasks))
 
    }
-  
+   function handleToggleStatus(id){
+    const updated_tasks= tasks.map(task=>
+      task.id== id ? {id: task.id ,text: task.text, completed: !task.completed}
+      :
+      {id: task.id, text: task.text, completed: task.completed}
+    
+
+    )
+    newTasks(updated_tasks);
+    localStorage.setItem("tasks", JSON.stringify(updated_tasks));
+
+   }
+
+   function delTask(id){
+    const updated_tasks= tasks.filter(task=> 
+     task.id !== id
+    )
+    newTasks(updated_tasks);
+    localStorage.setItem("tasks", JSON.stringify(updated_tasks));
+   }
+
+   function editTask(task){
+    setTaskId(task.id);
+    setTaskText(task.text);
+
+   }
+   function changeTaskText(text){
+    setTaskText(text);
+   }
+   function saveEditTask(task){
+    const updated_tasks= tasks.map(task=>
+      task.id== currTaskId ? {id: task.id, text: currTaskText, completed: task.completed}
+      :
+      {id: task.id, text: task.text, completed: task.completed}
+    )
+    newTasks(updated_tasks);
+    localStorage.setItem("tasks",JSON.stringify(updated_tasks));
+    setTaskId('');
+    
+
+   }
+   function cancelEditTask(task){
+    setTaskId('');
+    setTaskText('');
+
+   }
   
   return (
     <div className="app">
@@ -105,6 +152,14 @@ function App(){
       save={handleSave}
       cancel={handleCancel}
       tasks={tasks}
+      toggleStatus={handleToggleStatus}
+      delTask={delTask}
+      editTask={editTask}
+      currTaskId={currTaskId}
+      currTaskText={currTaskText}
+      saveEditTask={saveEditTask}
+      changeTaskText={changeTaskText}
+      cancelEditTask={cancelEditTask}
       />
      <AddNote add={handleClick}/>
      <AddTask add={handleAddTask}/>
