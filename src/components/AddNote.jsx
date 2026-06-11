@@ -22,7 +22,11 @@ function AddNote({add}){
                     setIsAdding(false);
 
                 }}>Add</button>
-                <button className="button" onClick={()=> setIsAdding(false)}>Cancel</button>
+                <button className="button" onClick={()=> {
+                    setIsAdding(false);
+                    setval('');
+                }
+                }>Cancel</button>
 
             </div>
             

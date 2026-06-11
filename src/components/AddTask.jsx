@@ -20,7 +20,11 @@ function AddTask({add}){
                 setTask('');
                 }                
                 }>Add</button>
-                <button className="button" onClick={()=>setIsAddingTask(false)}> Cancel</button>
+                <button className="button" onClick={()=>{
+                    setIsAddingTask(false)
+                    setTask('');
+                    }
+                }> Cancel</button>
 
                
 
