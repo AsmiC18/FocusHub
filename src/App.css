@@ -11,6 +11,7 @@ body{
     max-width:90%;
     margin-bottom: 50px;
     margin-top:40px;
+    margin-width:900px;
 
     padding: 2px;
     background:ghostwhite;
@@ -79,4 +80,35 @@ h3{
     display:flex;
     justify-content:space-between;
 
+}
+.card{
+    padding: 20px;
+    border:2px solid rgba(0, 0, 255, 0.509);
+    border-radius:20px;
+    margin: 20px;
+    background:floralwhite;
+    box-shadow: 0 1px 1px 2px blueviolet;
+    width: 180px;
+    height: 180px;
+    text-align: center;
+    cursor: pointer;
+   
+   
+}
+.card-container{
+    display:flex;
+}
+.progress-bar{
+    width:30%;
+    border: 1px solid black;
+    height:15px;
+    margin:10px;
+}
+.progress-fill{
+    background: rgb(32, 239, 32);
+    height: 100%;
+}
+.progress{
+    display:flex;
+    align-items: center;
 }
