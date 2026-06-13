@@ -1,12 +1,15 @@
-import Dashboard from './components/Dashboard.jsx'
 import {useState, useEffect} from 'react'
 import AddNote from './components/AddNote.jsx'
 import AddTask from './components/AddTask.jsx'
 import AddGoal from './components/AddGoal.jsx'
+import NotesPage from './components/NotesPage.jsx'
+import TasksPage from './components/TasksPage.jsx'
+import GoalsPage from './components/GoalsPage.jsx'
+
 import './App.css'
 function App(){
 
-  const [name,setName]= useState('');
+  const [user,setUser]= useState('');
  
 
   const [notes,newnotes]=useState([]);
@@ -25,6 +28,10 @@ function App(){
   const [currEditGoalId,setEditGoalId]=useState('');
   const [currGoalText,setGoalText]=useState('');
   const [currGoalTarget,setGoalTarget]=useState('');
+
+  const [viewState, setViewState]=useState('dashboard');
+
+  
 
   
 
@@ -216,6 +223,9 @@ function App(){
     setGoalText('');
     setGoalTarget('')
    }
+   function goBack(){
+    setViewState('dashboard');
+   }
   
 
   
@@ -225,53 +235,98 @@ function App(){
     <div>
       Display Name:
      <input 
-      onChange={(e)=> setName(e.target.value)}
+      onChange={(e)=> setUser(e.target.value)}
      />
     </div>
+    {viewState==='dashboard' && (
+      <>
+       {user ? <h3>Hello {user}!</h3> : null}
+      <div className="card-container">
+     
+        <div className="card" onClick={()=>setViewState('notes')}>
+         <h2>Notes</h2>
+          <p>Total:{notes.length}</p>
+        </div>
 
-     <Dashboard
-      user= {name} 
-      notes={notes} 
-      del={handleDel} 
+        <div className="card" onClick={()=>setViewState('tasks')}>
+          <h2>Tasks</h2>
+          <p>Total: {tasks.length}</p> 
+          <p> Pending: {tasks.filter(task => task.completed==false).length} </p>
+        </div>
+
+        <div className="card" onClick={()=>setViewState('goals')}>
+          <h2>Goals</h2>
+          <p>Total: {goals.length}</p> 
+          <p> Active: {goals.filter(goal => goal.current<goal.target).length} </p>
+
+        </div>
+      
+      </div>
+      </>
+    )}
+    {viewState==='notes' && (
+      <>
+      {user ? <h3>Hello {user}!</h3> : null}
+      <NotesPage
+      goBack= {goBack}
+      user= {user}
+      notes={notes}
+      del ={handleDel}
       edit={handleEdit}
-      currId={currId}
-      currText={currText}
-      changeText={handleTextChange}
-      save={handleSave}
+      currId= {currId}
+      currText= {currText}
+      changeText= {handleTextChange}
+      save= {handleSave}
       cancel={handleCancel}
-      tasks={tasks}
-      toggleStatus={handleToggleStatus}
-      delTask={delTask}
-      editTask={editTask}
-      currTaskId={currTaskId}
-      currTaskText={currTaskText}
-      saveEditTask={saveEditTask}
-      changeTaskText={changeTaskText}
-      cancelEditTask={cancelEditTask}
-      goals={goals}
-      addProgress={addProgress}
-      currGoalId={currGoalId}
-      newProgress={handleNewProgress}
-      saveProgress={saveProgress}
-      currGoalProgress={currGoalProgress}
-      cancelAddProgress={cancelAddProgress}
-      delGoal={delGoal}
-      editGoal={editGoal}
-      currEditGoalId={currEditGoalId}
-      changeGoalText={changeGoalText}
-      changeGoalTarget={changeGoalTarget}
-      currGoalText={currGoalText}
-      currGoalTarget={currGoalTarget}
-      saveEditGoal={saveEditGoal}
-      cancelEditGoal={cancelEditGoal}
+      
       />
-     <AddNote add={handleClick}/>
-     <AddTask add={handleAddTask}/>
-     <AddGoal add={handleAddGoal}/>
-
-     
-     
-
+       <AddNote add={handleClick}/>
+       </>
+    )}
+    {viewState==='tasks' && (
+      <>
+      {user ? <h3>Hello {user}!</h3> : null}
+      <TasksPage
+      goBack= {goBack}
+      tasks={tasks}
+      toggleStatus ={handleToggleStatus}
+      delTask= {delTask}
+      editTask= {editTask}
+      currTaskId={currTaskId}
+      currTaskText ={currTaskText}
+      saveEditTask= {saveEditTask}
+      changeTaskText ={changeTaskText}
+      cancelEditTask ={cancelEditTask}
+    
+      />
+       <AddTask add={handleAddTask}/>
+      </>
+    )}
+    {viewState==='goals' && (
+      <>
+      {user ? <h3>Hello {user}!</h3> : null}
+      <GoalsPage
+        goBack={goBack}
+        goals={goals}
+        currGoalProgress={currGoalProgress}
+        addProgress ={addProgress}
+        currGoalId ={currGoalId}
+        saveProgress= {saveProgress}
+        newProgress={handleNewProgress}
+        cancelAddProgress={cancelAddProgress}
+        delGoal={delGoal}
+        editGoal={editGoal}
+        currEditGoalId={currEditGoalId}
+        changeGoalText={changeGoalText}
+        currGoalText={currGoalText}
+        currGoalTarget={currGoalTarget}
+        changeGoalTarget ={changeGoalTarget}
+        saveEditGoal ={saveEditGoal}
+        cancelEditGoal={cancelEditGoal}
+      />
+       <AddGoal add={handleAddGoal}/>
+      </>
+    )}
     </div>
     
 
