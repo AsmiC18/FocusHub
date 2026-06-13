@@ -1,26 +1,56 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
     background:lavender;
+    align: center;
 }
 .app{
-    margin:40px 10px;
+    margin:40px auto;
     padding:5px;
-    max-width: auto;
+    max-width: 800px;
 }
 .dashboard{
     max-width:90%;
     margin-bottom: 50px;
     margin-top:40px;
-    margin-width:900px;
-
+    width:900px;
     padding: 2px;
     background:ghostwhite;
     border-radius: 20px;
     box-shadow: 0 1px 1px 2px blueviolet;
 
-    
+}
+.header{
+    text-align:center;
+    border: 2px solid rgb(255, 255, 255);
+    padding:10px;
+    margin-top:-5px;
+    margin-bottom:30px;
+    margin-left:-5px;
+    margin-right:-5px;
+    background:white;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
 
 }
+.recents{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-wrap:nowrap;
+}
+.recent-box{
+    background: white;
+    border: 2px solid black;
+    margin:20px;
+    padding:20px;
+    width:250px;
+    min-height:100px;
+    flex-shrink:0;
+
+}
+
+
 h1{
     text-align: center;
     padding:2px;
@@ -29,19 +59,16 @@ h1{
 h2{
     text-align:center;
 }
-h3{
-    text-align:left;
-    margin: 20px 10px;
-}
 
 .notecard{
     padding:10px;
-    margin:2px;
+    margin:10px;
     border: 2px solid;
     border-radius:15px;
     display:flex;
     justify-content: space-between;
     background:floralwhite;
+    align-items: center;
 }
 .icon button{
     padding:4px;
@@ -60,21 +87,42 @@ h3{
     cursor: pointer;
 
 }
+.inner-buttons{
+    padding:5px;
+    border: 2px solid black;
+    margin:5px;
+    border-radius:10px;
+    background:rgb(255, 255, 255);
+    cursor: pointer;
+
+    
+}
+.inner-heading{
+    background: white;
+    text-align:center;
+    height:30px;
+    align-items:center;
+    border-radius:20px;
+    
+}
+
 .taskcard{
     padding:10px;
-    margin:2px;
+    margin:10px;
     border: 2px solid;
     border-radius:15px;
     display:flex;
     justify-content: space-between;
     background:floralwhite;
+    align-items: center;
 }
 .goalcard{
     padding:10px;
-    margin:2px;
+    margin:10px;
     border: 2px solid;
     border-radius:15px;
     background:floralwhite;
+    align-items: center;
 }
 .goalbuttons{
     display:flex;
@@ -83,20 +131,25 @@ h3{
 }
 .card{
     padding: 20px;
-    border:2px solid rgba(0, 0, 255, 0.509);
     border-radius:20px;
     margin: 20px;
-    background:floralwhite;
-    box-shadow: 0 1px 1px 2px blueviolet;
-    width: 180px;
-    height: 180px;
+    background:white;
+    box-shadow: 0 0 20px rgb(186, 146, 255);
+    width: 160px;
+    height: 160px;
     text-align: center;
     cursor: pointer;
-   
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
    
 }
+
 .card-container{
     display:flex;
+    justify-content:center;
 }
 .progress-bar{
     width:30%;
