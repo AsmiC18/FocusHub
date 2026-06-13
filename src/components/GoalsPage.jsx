@@ -1,11 +1,11 @@
-import {FaTrash,FaEdit} from 'react-icons/fa'
+import {FaTrash,FaEdit, FaTrophy} from 'react-icons/fa'
 function GoalsPage({goBack,goals,currGoalProgress,addProgress,currGoalId,saveProgress,newProgress,cancelAddProgress,delGoal,editGoal,
     currEditGoalId,changeGoalText,currGoalText,currGoalTarget,changeGoalTarget,saveEditGoal,cancelEditGoal}){
         return(
     goals.length==0 ? (
                 <>
                 <h3>No Goals yet</h3>
-                <button onClick={()=> goBack()}>Back to Dashboard</button>
+                <button className="button" onClick={()=> goBack()}>Back to Dashboard</button>
                 </>
 
             )
@@ -73,13 +73,13 @@ function GoalsPage({goBack,goals,currGoalProgress,addProgress,currGoalId,savePro
                             
 
                             <div className="goalbuttons">
-                            <button onClick={()=>addProgress(goal)}>Add Progress</button>
+                            <button className="inner-buttons" onClick={()=>addProgress(goal)}>Add Progress</button>
                             <div className="icon">
                             <button onClick={()=>delGoal(goal.id)}><FaTrash/></button>
                             <button onClick={()=>editGoal(goal)}><FaEdit/></button>
                             </div>
                             </div>
-                <button onClick={()=> goBack()}>Back to Dashboard</button>
+               
 
 
             </>
@@ -90,6 +90,7 @@ function GoalsPage({goBack,goals,currGoalProgress,addProgress,currGoalId,savePro
                     </div>
                     )
                 }
+                 <button className="button" onClick={()=> goBack()}>Back to Dashboard</button>
             
              </>  
                 

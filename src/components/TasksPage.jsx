@@ -1,10 +1,10 @@
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaTrash, FaEdit, FaRegCheckSquare } from "react-icons/fa";
 function TasksPage({goBack,tasks,toggleStatus,delTask,editTask, currTaskId,currTaskText,saveEditTask,changeTaskText,cancelEditTask}){
     return(
          tasks.length==0 ? (
                 <>
                 <h3>No tasks yet</h3>
-                <button onClick={()=> goBack()}>Back to Dashboard</button>
+                <button className="button" onClick={()=> goBack()}>Back to Dashboard</button>
                 </>
             )
                 : (
@@ -52,7 +52,7 @@ function TasksPage({goBack,tasks,toggleStatus,delTask,editTask, currTaskId,currT
                         </div>
                         )}
                    
-                   <button onClick={()=> goBack()}>Back to Dashboard</button>
+                   <button className="button" onClick={()=> goBack()}>Back to Dashboard</button>
                     </>
                 )
     )

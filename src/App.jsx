@@ -5,6 +5,7 @@ import AddGoal from './components/AddGoal.jsx'
 import NotesPage from './components/NotesPage.jsx'
 import TasksPage from './components/TasksPage.jsx'
 import GoalsPage from './components/GoalsPage.jsx'
+import {FaRegStickyNote,FaRegCheckSquare, FaTrophy} from 'react-icons/fa'
 
 import './App.css'
 function App(){
@@ -230,43 +231,84 @@ function App(){
 
   
   return (
-    <div className="app">
-      <h1>FocusHub</h1>
-    <div>
-      Display Name:
-     <input 
-      onChange={(e)=> setUser(e.target.value)}
-     />
+    <>
+     <div className="header">
+        <h1>FocusHub</h1>
+        <div>
+          Display Name:
+        <input 
+          onChange={(e)=> setUser(e.target.value)}
+        />
+         </div>
+        {user ? <h3>Hello {user}!</h3> : null}
+       
     </div>
+    <div className="app">
     {viewState==='dashboard' && (
       <>
-       {user ? <h3>Hello {user}!</h3> : null}
+       
       <div className="card-container">
      
         <div className="card" onClick={()=>setViewState('notes')}>
+         <div style={{color:'purple'}}><FaRegStickyNote/></div>
          <h2>Notes</h2>
-          <p>Total:{notes.length}</p>
+         Total:{notes.length}
         </div>
 
         <div className="card" onClick={()=>setViewState('tasks')}>
+          <div style={{color:'green', size:32} }><FaRegCheckSquare/></div>
           <h2>Tasks</h2>
-          <p>Total: {tasks.length}</p> 
-          <p> Pending: {tasks.filter(task => task.completed==false).length} </p>
+          Total: {tasks.length}<br/>
+          Pending: {tasks.filter(task => task.completed==false).length} 
         </div>
 
         <div className="card" onClick={()=>setViewState('goals')}>
+          <div style={{color:'goldenrod'}}><FaTrophy/></div>
           <h2>Goals</h2>
-          <p>Total: {goals.length}</p> 
-          <p> Active: {goals.filter(goal => goal.current<goal.target).length} </p>
+          Total: {goals.length}<br/>
+          Active: {goals.filter(goal => goal.current<goal.target).length} 
 
         </div>
       
       </div>
+    
+      <div className="recents">
+        <h3>Recents:</h3>
+        <div className="recent-box">
+          <h4>Notes</h4>
+        { notes.slice(-2).reverse().map(
+          note => 
+            <li>{note.text}</li>
+          )
+        }
+        </div>
+        <div className="recent-box">
+          <h4>Tasks</h4>
+        { tasks.slice(-2).reverse().map(
+          task => 
+            
+            <li style={{background: `${task.completed ? 'green' : 'beige'}`}}>{task.text}</li>
+          )
+        }
+        </div>
+         <div className="recent-box">
+          <h4>Goals</h4>
+        { goals.slice(-2).reverse().map(
+          goal => 
+            
+            <li style={{background: `${goal.current<goal.target ? 'beige' : 'green'}`}}>{goal.text}</li>
+          )
+        }
+        </div>
+      </div>
+
+      
+
       </>
     )}
     {viewState==='notes' && (
       <>
-      {user ? <h3>Hello {user}!</h3> : null}
+     
       <NotesPage
       goBack= {goBack}
       user= {user}
@@ -285,7 +327,7 @@ function App(){
     )}
     {viewState==='tasks' && (
       <>
-      {user ? <h3>Hello {user}!</h3> : null}
+     
       <TasksPage
       goBack= {goBack}
       tasks={tasks}
@@ -304,7 +346,7 @@ function App(){
     )}
     {viewState==='goals' && (
       <>
-      {user ? <h3>Hello {user}!</h3> : null}
+   
       <GoalsPage
         goBack={goBack}
         goals={goals}
@@ -328,7 +370,7 @@ function App(){
       </>
     )}
     </div>
-    
+    </>
 
   )
 }

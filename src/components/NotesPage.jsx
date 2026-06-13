@@ -1,10 +1,12 @@
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaTrash, FaEdit, FaRegStickyNote } from "react-icons/fa";
 function NotesPage({goBack,user,notes,del,edit,currId,currText,changeText,save,cancel}){
     return(
         <>
             {notes.length!=0 ? (
                                 <>
+                                    <div className="inner-heading">
                                     <h3> Notes</h3>
+                                    </div>
         
                                     {notes.map(
                                         note =>
@@ -32,14 +34,14 @@ function NotesPage({goBack,user,notes,del,edit,currId,currText,changeText,save,c
                                         }
                                         </div>)
                                     }
-                                    <button onClick={()=> goBack()}>Back to Dashboard</button>
+                                    <button className="button" onClick={()=> goBack()}>Back to Dashboard</button>
                                 </>
                                 )
                 
                                 : (
                                 <>
                                 <h3>No notes yet.</h3>
-                                <button onClick={()=> goBack()}>Back to Dashboard</button>
+                                <button className="button" onClick={()=> goBack()}>Back to Dashboard</button>
                                 </>
                                 )
                         
