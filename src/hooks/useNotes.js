@@ -1,21 +1,45 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import useLocalStorage from './useLocalStorage.js'
+
 function useNotes(){
 
-  const [notes,newnotes]=useLocalStorage("notes",[]);
+  const [notes,newnotes]=useState([]);
 
   const [currId,setId]=useState('');
   const [currText, setText]=useState('');
 
-  function handleClick(note){
-    const updated_notes= ([...notes,note]);
-    newnotes(updated_notes)
+
+   useEffect(()=>{
+    async function loadNotes(){
+    const response= await fetch('http://localhost:3000/notes');
+    const info= await response.json();
+    newnotes(info);
+    }
+    loadNotes();
+  },[]);
+  async function handleClick(note){
+
+    const response = await fetch('http://localhost:3000/notes',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(note)
+    })
+    const info = await response.json();
+    newnotes(info);
   
   }
 
-   function handleDel(id){
-    const updated_notes= (notes.filter((note)=> note.id !== id));
-    newnotes(updated_notes);
+  async function handleDel(id){
+    
+    const response = await fetch(`http://localhost:3000/notes/${id}`,{
+      method: 'DELETE'
+    });
+    const info= await response.json();
+
+
+    newnotes(info);
     
    }
 
@@ -27,18 +51,25 @@ function useNotes(){
    function handleTextChange(text){
     setText(text);
    }
-   function handleSave(){
-    const updated_notes= notes.map(note=> 
-       note.id === currId? { id: note.id, text: currText}
-       : {id: note.id, text: note.text}
-    )
+   async function handleSave(){
+    const response= await fetch(`http://localhost:3000/notes/${currId}`,{
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: currText
+      })
 
-    
-    newnotes(updated_notes);
-    
+    });
+    const info= await response.json();
+
+    newnotes(info);
     setId('')
     
 
+
+  
    }
 
    function handleCancel(){
