@@ -25,8 +25,7 @@ function App(){
   const navigate=useNavigate();
 
   const [user,setUser]= useState('');
- 
-
+  
    function goBack(){
     navigate('/');
    }

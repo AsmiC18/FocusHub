@@ -1,17 +1,39 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import useLocalStorage from './useLocalStorage.js';
 function useGoals(){
-     const [goals,newGoals]=useLocalStorage("goals",[]);
-  
+    const [goals,newGoals]=useState([]);
+
     const [currGoalId,setGoalId]=useState('');
     const [currGoalProgress,setGoalProgress]=useState('');
+
     const [currEditGoalId,setEditGoalId]=useState('');
     const [currGoalText,setGoalText]=useState('');
     const [currGoalTarget,setGoalTarget]=useState('');
-function handleAddGoal(goal){
 
-    const updated_goals= [...goals,goal];
-    newGoals(updated_goals);
+    useEffect(()=>{
+      async function loadGoals(){
+          const response = await fetch('http://localhost:3000/goals',{
+            method: "GET"
+          })
+          const info = await response.json();
+          newGoals(info);
+
+      }
+      loadGoals();
+    },[]);
+
+async function handleAddGoal(goal){
+  
+    const response= await fetch('http://localhost:3000/goals',{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(goal)
+    })
+    const info= await response.json();
+    newGoals(info);
+
 
    }
    function addProgress(goal){
@@ -19,17 +41,20 @@ function handleAddGoal(goal){
     setGoalProgress(goal.current);
 
    }
-   function saveProgress(){
-    const updated_goals= goals.map(goal=>
-      goal.id===currGoalId ?
-      
-      {id: currGoalId, text:goal.text, target: goal.target,
-         current:Number(currGoalProgress) > goal.target ? goal.target : Number(currGoalProgress)}
-      :
-      goal
-    )
+   
+   async function saveProgress(){
 
-    newGoals(updated_goals);
+    const response = await fetch(`http://localhost:3000/goals/progress/${currGoalId}`,{
+      method:'PUT',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        current: currGoalProgress
+      })
+    })
+    const info= await response.json();
+    newGoals(info);
     setGoalId('');
     setGoalProgress('');
 
@@ -42,10 +67,13 @@ function handleAddGoal(goal){
     setGoalId('')
     setGoalProgress('');
    }
-   function delGoal(id){
-    const updated_goals= goals.filter(goal=> goal.id!=id);
-    newGoals(updated_goals);
-
+   async function delGoal(id){
+    
+    const response = await fetch(`http://localhost:3000/goals/${id}`,{
+      method: 'DELETE',
+    })
+    const info= await response.json();
+    newGoals(info);
    }
    function editGoal(goal){
     setEditGoalId(goal.id);
@@ -59,14 +87,21 @@ function handleAddGoal(goal){
     setGoalTarget(target);
 
    }
-   function saveEditGoal(){
-    const updated_goals= goals.map(goal=>
-      goal.id===currEditGoalId ?
-      {id: goal.id, text: currGoalText, target: Number(currGoalTarget), current: Number(goal.current)> Number(currGoalTarget) ? Number(currGoalTarget) : goal.current}
-      :
-      goal
-    )
-    newGoals(updated_goals);
+   async function saveEditGoal(){
+
+    const response = await fetch(`http://localhost:3000/goals/edit/${currEditGoalId}`,{
+      method: 'PUT',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: currGoalText,
+        target: currGoalTarget
+      })
+    })
+    const info= await response.json();
+    newGoals(info);
+
     setEditGoalId('')
     setGoalText('')
     setGoalTarget('')
