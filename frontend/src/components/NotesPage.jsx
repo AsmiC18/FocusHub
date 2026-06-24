@@ -11,8 +11,8 @@ function NotesPage({goBack,user,notes,del,edit,currId,currText,changeText,save,c
                 {notes.map(
                     note =>
                         <div className="notecard"
-                    key={note.id}>
-                        {note.id===currId ?
+                    key={note._id}>
+                        {note._id===currId ?
                         <div>
                             <input
                             value={currText}
@@ -27,7 +27,7 @@ function NotesPage({goBack,user,notes,del,edit,currId,currText,changeText,save,c
                         
                     
                         <div className="icon">
-                            <button onClick= {()=> {del(note.id)}}><FaTrash/></button>
+                            <button onClick= {()=> {del(note._id)}}><FaTrash/></button>
                             <button onClick= {()=> {edit(note)}}> <FaEdit/></button>
                         </div>
                         </>

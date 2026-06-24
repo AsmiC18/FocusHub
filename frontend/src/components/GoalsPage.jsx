@@ -16,8 +16,8 @@ function GoalsPage({goBack,goals,currGoalProgress,addProgress,currGoalId,savePro
                   {goals.map(goal=>
 
                     <div className='goalcard' 
-                    key={goal.id}>
-                        {goal.id==currGoalId ? 
+                    key={goal._id}>
+                        {goal._id==currGoalId ? 
                         (
                             <>
                             <p>{goal.text} | Target: {goal.target} | Current: {goal.current}</p>
@@ -31,7 +31,7 @@ function GoalsPage({goBack,goals,currGoalProgress,addProgress,currGoalId,savePro
 
                             </>
                         )
-                        : goal.id== currEditGoalId ? (
+                        : goal._id== currEditGoalId ? (
                             <>
                             <input 
                             value={currGoalText}
@@ -75,7 +75,7 @@ function GoalsPage({goBack,goals,currGoalProgress,addProgress,currGoalId,savePro
                             <div className="goalbuttons">
                             <button className="inner-buttons" onClick={()=>addProgress(goal)}>Add Progress</button>
                             <div className="icon">
-                            <button onClick={()=>delGoal(goal.id)}><FaTrash/></button>
+                            <button onClick={()=>delGoal(goal._id)}><FaTrash/></button>
                             <button onClick={()=>editGoal(goal)}><FaEdit/></button>
                             </div>
                             </div>

@@ -64,7 +64,7 @@ function useTasks(){
    }
 
    function editTask(task){
-    setTaskId(task.id);
+    setTaskId(task._id);
     setTaskText(task.text);
 
    }

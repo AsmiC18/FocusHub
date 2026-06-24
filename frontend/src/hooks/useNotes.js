@@ -46,7 +46,7 @@ function useNotes(){
    }
 
    function handleEdit(note){
-    setId(note.id);
+    setId(note._id);
     setText(note.text); 
    }
    

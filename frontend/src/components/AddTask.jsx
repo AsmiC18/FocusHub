@@ -12,7 +12,6 @@ function AddTask({add}){
                 />
                 <button className="button" onClick={()=>{
                     add({
-                        id: Date.now(),
                         text: currTask,
                         completed: false
                     })

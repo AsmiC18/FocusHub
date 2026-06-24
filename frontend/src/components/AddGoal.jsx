@@ -24,7 +24,6 @@ function AddGoal({add}){
             />
             </p>
             <button className="button" onClick={()=>{add({
-                id: Date.now(),
                 text: currGoalText,
                 target: Number(currTarget),
                 current: 0
