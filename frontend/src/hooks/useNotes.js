@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
-import useLocalStorage from './useLocalStorage.js'
+
+
+const BASE_URL= import.meta.env.VITE_API_URL
 
 function useNotes(){
 
@@ -11,7 +13,7 @@ function useNotes(){
 
    useEffect(()=>{
     async function loadNotes(){
-    const response= await fetch('http://localhost:3000/notes');
+    const response= await fetch(`${BASE_URL}/notes`);
     const info= await response.json();
     newnotes(info);
     }
@@ -19,7 +21,7 @@ function useNotes(){
   },[]);
   async function handleClick(note){
 
-    const response = await fetch('http://localhost:3000/notes',{
+    const response = await fetch(`${BASE_URL}/notes`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,7 +35,7 @@ function useNotes(){
 
   async function handleDel(id){
     
-    const response = await fetch(`http://localhost:3000/notes/${id}`,{
+    const response = await fetch(`${BASE_URL}/notes/${id}`,{
       method: 'DELETE'
     });
     const info= await response.json();
@@ -52,7 +54,7 @@ function useNotes(){
     setText(text);
    }
    async function handleSave(){
-    const response= await fetch(`http://localhost:3000/notes/${currId}`,{
+    const response= await fetch(`${BASE_URL}/notes/${currId}`,{
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

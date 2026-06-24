@@ -1,5 +1,7 @@
 import {useState,useEffect} from 'react'
-import useLocalStorage from './useLocalStorage.js';
+
+const BASE_URL= import.meta.env.VITE_API_URL; 
+
 function useGoals(){
     const [goals,newGoals]=useState([]);
 
@@ -12,7 +14,7 @@ function useGoals(){
 
     useEffect(()=>{
       async function loadGoals(){
-          const response = await fetch('http://localhost:3000/goals',{
+          const response = await fetch(`${BASE_URL}/goals`,{
             method: "GET"
           })
           const info = await response.json();
@@ -24,7 +26,7 @@ function useGoals(){
 
 async function handleAddGoal(goal){
   
-    const response= await fetch('http://localhost:3000/goals',{
+    const response= await fetch(`${BASE_URL}/goals`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -44,7 +46,7 @@ async function handleAddGoal(goal){
    
    async function saveProgress(){
 
-    const response = await fetch(`http://localhost:3000/goals/progress/${currGoalId}`,{
+    const response = await fetch(`${BASE_URL}/goals/progress/${currGoalId}`,{
       method:'PUT',
       headers:{
         'Content-Type': 'application/json'
@@ -69,7 +71,7 @@ async function handleAddGoal(goal){
    }
    async function delGoal(id){
     
-    const response = await fetch(`http://localhost:3000/goals/${id}`,{
+    const response = await fetch(`${BASE_URL}/goals/${id}`,{
       method: 'DELETE',
     })
     const info= await response.json();
@@ -89,7 +91,7 @@ async function handleAddGoal(goal){
    }
    async function saveEditGoal(){
 
-    const response = await fetch(`http://localhost:3000/goals/edit/${currEditGoalId}`,{
+    const response = await fetch(`${BASE_URL}/goals/edit/${currEditGoalId}`,{
       method: 'PUT',
       headers:{
         'Content-Type': 'application/json'

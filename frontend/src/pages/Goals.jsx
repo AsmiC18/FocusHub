@@ -1,7 +1,7 @@
 import AddGoal from '../components/AddGoal.jsx'
 import GoalsPage from '../components/GoalsPage.jsx'
 import useGoals from '../hooks/useGoals.js'
-import useLocalStorage from '../hooks/useLocalStorage.js'
+
 function Goals({goBack}){
 
   const {goals,currGoalId, currGoalProgress, currEditGoalId,currGoalText,currGoalTarget,

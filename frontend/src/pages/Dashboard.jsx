@@ -4,7 +4,7 @@ import {FaRegStickyNote,FaRegCheckSquare, FaTrophy} from 'react-icons/fa';
 import useNotes from '../hooks/useNotes.js';
 import useGoals from '../hooks/useGoals.js';
 import useTasks from '../hooks/useTasks.js';
-import useLocalStorage from '../hooks/useLocalStorage.js';
+
 
 function Dashboard(){
     const {notes}= useNotes();

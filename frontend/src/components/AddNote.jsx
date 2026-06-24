@@ -27,6 +27,7 @@ function AddNote({add}){
                     setval('');
                 }
                 }>Cancel</button>
+                
 
             </div>
             

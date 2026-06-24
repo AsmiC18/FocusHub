@@ -1,7 +1,7 @@
 import AddNote from '../components/AddNote.jsx'
 import NotesPage from '../components/NotesPage.jsx'
 import useNotes from '../hooks/useNotes.js'
-import useLocalStorage from '../hooks/useLocalStorage.js'
+
 
 function Notes({goBack}){
     const {notes,currId,currText, handleClick,handleDel,handleEdit,handleTextChange,handleSave,handleCancel}= useNotes();
