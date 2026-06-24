@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import {Routes, Route, useNavigate} from 'react-router-dom'
 
-import useLocalStorage from './hooks/useLocalStorage.js';
+
 import useNotes from './hooks/useNotes.js';
 import useTasks from './hooks/useTasks.js';
 import useGoals from './hooks/useGoals.js';

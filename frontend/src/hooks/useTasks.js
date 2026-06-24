@@ -1,5 +1,7 @@
 import {useState,useEffect} from 'react'
-import useLocalStorage from './useLocalStorage.js'
+
+
+const BASE_URL= import.meta.env.VITE_API_URL;
 
 function useTasks(){
 
@@ -9,7 +11,7 @@ function useTasks(){
 
   useEffect(()=>{
    async function loadTasks(){
-    const response = await fetch('http://localhost:3000/tasks');
+    const response = await fetch(`${BASE_URL}/tasks`);
 
     const info= await response.json();
     newTasks(info);
@@ -25,7 +27,7 @@ function useTasks(){
     const updated_tasks= [...tasks,Task];
     newTasks(updated_tasks);
 
-    const response= await fetch('http://localhost:3000/tasks',{
+    const response= await fetch(`${BASE_URL}/tasks`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -39,7 +41,7 @@ function useTasks(){
    }
    async function handleToggleStatus(id){
 
-    const response = await fetch(`http://localhost:3000/tasks/status/${id}`,{
+    const response = await fetch(`${BASE_URL}/tasks/status/${id}`,{
       method: 'PUT'
     });
     const info= await response.json();
@@ -52,7 +54,7 @@ function useTasks(){
 
    async function delTask(id){
 
-    const response = await fetch(`http://localhost:3000/tasks/${id}`,{
+    const response = await fetch(`${BASE_URL}/tasks/${id}`,{
       method: 'DELETE'
 
     })
@@ -71,7 +73,7 @@ function useTasks(){
    }
    async function saveEditTask(task){
 
-    const response = await fetch(`http://localhost:3000/tasks/edit/${currTaskId}`,{
+    const response = await fetch(`${BASE_URL}/tasks/edit/${currTaskId}`,{
       method:'PUT',
       headers: {
         'Content-Type': 'application/json'
