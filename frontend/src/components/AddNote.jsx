@@ -17,7 +17,7 @@ function AddNote({add}){
                     if(currval.trim()===''){
                         return;
                     }
-                    add({id: Date.now(), text: currval});
+                    add({text: currval});
                     setval('');
                     setIsAdding(false);
 

@@ -39,7 +39,7 @@ async function handleAddGoal(goal){
 
    }
    function addProgress(goal){
-    setGoalId(goal.id);
+    setGoalId(goal._id);
     setGoalProgress(goal.current);
 
    }
@@ -78,7 +78,7 @@ async function handleAddGoal(goal){
     newGoals(info);
    }
    function editGoal(goal){
-    setEditGoalId(goal.id);
+    setEditGoalId(goal._id);
     setGoalText(goal.text);
     setGoalTarget(goal.target);
    }

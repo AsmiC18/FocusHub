@@ -14,10 +14,10 @@ function TasksPage({goBack,tasks,toggleStatus,delTask,editTask, currTaskId,currT
                     { tasks.map(task=>
                         
                         <div className="taskcard"
-                        key= {task.id}>
+                        key= {task._id}>
                             
                         {
-                            task.id==currTaskId ? 
+                            task._id==currTaskId ? 
                                 <div>
                                     <input 
                                     value={currTaskText}
@@ -35,12 +35,12 @@ function TasksPage({goBack,tasks,toggleStatus,delTask,editTask, currTaskId,currT
                                 <div>
                                     <input type="checkbox" 
                                     checked={task.completed}
-                                    onChange={()=>toggleStatus(task.id)}/>
+                                    onChange={()=>toggleStatus(task._id)}/>
                                     {task.text}
                                 </div>   
 
                                 <div className="icon">
-                                    <button onClick={()=> delTask(task.id)}><FaTrash/></button>
+                                    <button onClick={()=> delTask(task._id)}><FaTrash/></button>
                                     <button onClick={()=> editTask(task)}><FaEdit/></button>
                                 </div>
                             </>

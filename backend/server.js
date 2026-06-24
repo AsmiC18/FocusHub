@@ -60,9 +60,7 @@ app.delete('/notes/:id', async(req,res)=>{
 
     // res.json(parsedData.notes);
     
-    await Note.deleteOne({
-        id: Number(req.params.id)
-    });
+    await Note.findByIdAndDelete(req.params.id);
     res.json(await Note.find());
 
 });
@@ -80,8 +78,8 @@ app.put('/notes/:id', async(req,res)=>{
 
     // res.json(parsedData.notes);
 
-    const note= await Note.updateOne(
-        {id:Number(req.params.id)},
+    const note= await Note.findByIdAndUpdate(
+        req.params.id,
         {text: req.body.text}
     )
     res.json(await Note.find());
@@ -110,7 +108,6 @@ app.post('/tasks', async (req,res)=>{
     // res.send(parsedData.tasks);
 
     const task= await Task.create({
-        id: Number(req.body.id),
         text: req.body.text,
         completed: req.body.completed
     })
@@ -128,10 +125,10 @@ app.put('/tasks/status/:id',async (req,res)=>{
 
     // res.json(parsedData.tasks);
 
-    const task= await Task.findOne({id: Number(req.params.id)});
+    const task= await Task.findById(req.params.id);
 
-    await Task.updateOne(
-        {id: Number(req.params.id)},
+    await Task.findByIdAndUpdate(
+        req.params.id,
         {completed: !task.completed}
     )
     res.send(await Task.find());
@@ -150,8 +147,8 @@ app.delete('/tasks/:id',async (req,res)=>{
 
     // res.json(parsedData.tasks);
 
-    await Task.deleteOne(
-        {id: Number(req.params.id)}
+    await Task.findByIdAndDelete(
+        req.params.id
     )
     res.json(await Task.find());
 })
@@ -167,8 +164,8 @@ app.put('/tasks/edit/:id/',async (req,res)=>{
 
     // res.json(parsedData.tasks);
 
-    await Task.updateOne(
-        {id: Number(req.params.id)},
+    await Task.findByIdAndUpdate(
+        req.params.id,
         {text: req.body.text}
     )
     res.json(await Task.find());
@@ -197,7 +194,6 @@ app.post('/goals',async (req,res)=>{
     // res.json(parsedData.goals);
 
     await Goal.create({
-        id:req.body.id,
         text: req.body.text,
         target: req.body.target,
         current: req.body.current
@@ -217,11 +213,11 @@ app.put('/goals/progress/:id/', async (req,res)=>{
 
     // res.json(parsedData.goals);
 
-    const goal=  await Goal.findOne({id: Number(req.params.id)});
+    const goal=  await Goal.findById(req.params.id);
     const progress= Number(req.body.current) > Number(goal.target) ? goal.target : Number(req.body.current)
 
-    await Goal.updateOne(
-        {id: Number(req.params.id)},
+    await Goal.findByIdAndUpdate(
+        req.params.id,
         {current: progress}
     )
     
@@ -239,7 +235,7 @@ app.delete('/goals/:id',async (req,res)=>{
     // fs.writeFileSync('./data.json',updatedData);
 
     // res.json(parsedData.goals);
-    await Goal.deleteOne({id: Number(req.params.id)});
+    await Goal.findByIdAndDelete(req.params.id);
     res.json(await Goal.find());
 
 });
@@ -256,8 +252,8 @@ app.put('/goals/edit/:id', async (req,res)=>{
 
     // res.json(parsedData.goals);
 
-    await Goal.updateOne(
-        {id: Number(req.params.id)},
+    await Goal.findByIdAndUpdate(
+        req.params.id,
         {
             text: req.body.text,
             target: Number(req.body.target)

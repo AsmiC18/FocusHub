@@ -45,7 +45,7 @@ function Dashboard(){
           <h4>Notes</h4>
         { notes.slice(-2).reverse().map(
           note => 
-            <li key={note.id}>{note.text}</li>
+            <li key={note._id}>{note.text}</li>
           )
         }
         </div>
@@ -54,7 +54,7 @@ function Dashboard(){
         { tasks.slice(-2).reverse().map(
           task => 
             
-            <li key={task.id} style={{background: `${task.completed ? 'green' : 'beige'}`}}>{task.text}</li>
+            <li key={task._id} style={{background: `${task.completed ? 'green' : 'beige'}`}}>{task.text}</li>
           )
         }
         </div>
@@ -63,7 +63,7 @@ function Dashboard(){
         { goals.slice(-2).reverse().map(
           goal => 
             
-            <li key={goal.id}style={{background: `${goal.current<goal.target ? 'beige' : 'green'}`}}>{goal.text}</li>
+            <li key={goal._id}style={{background: `${goal.current<goal.target ? 'beige' : 'green'}`}}>{goal.text}</li>
           )
         }
         </div>

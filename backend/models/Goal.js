@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
 const GoalSchema = mongoose.Schema({
-    id: Number,
     text: String,
     target: Number,
     current: Number
