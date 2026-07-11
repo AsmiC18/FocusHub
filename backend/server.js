@@ -1,10 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 
 import Note from './models/Note.js'
 import Task from './models/Task.js'
 import Goal from './models/Goal.js'
+import User from './models/User.js'
 
 import fs from 'fs';
 import cors from 'cors';
@@ -262,6 +264,47 @@ app.put('/goals/edit/:id', async (req,res)=>{
     )
 
     res.json(await Goal.find());
+});
+
+app.post('/register', async (req,res)=>{
+
+   
+    const existingUser= await User.findOne({email: req.body.email});
+    if(existingUser==null){
+        const hashedPassword= await bcrypt.hash(
+        req.body.password, 10
+        )
+        const user= await User.create({
+            email: req.body.email,
+            password: hashedPassword
+        });
+        res.send({'message': 'User registered sucessfully'});
+        }
+    else{
+        res.send({'message': 'User is already registered'});
+    }
+
+
+
+});
+app.post('/login',async (req,res)=>{
+    const userEmail= req.body.email;
+    const pass= req.body.password;
+
+    const existingUser= await User.findOne({email: userEmail});
+    if(existingUser!=null){
+        const correct= await bcrypt.compare(pass,existingUser.password);
+        if(correct){
+            res.send({'message': 'logged in successfully'});
+        }
+        else{
+            res.send({'message': 'incorrect password'});
+        }
+    }
+    else{
+        res.send({'message': 'User does not exist'});
+    }
+
 });
 
 app.listen(3000,()=>{
