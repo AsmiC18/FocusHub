@@ -2,6 +2,9 @@ import {useState, useEffect} from 'react'
 import {Routes, Route, useNavigate} from 'react-router-dom'
 
 
+import Register from './components/Register.jsx';
+import Login from './components/Login.jsx';
+
 import useNotes from './hooks/useNotes.js';
 import useTasks from './hooks/useTasks.js';
 import useGoals from './hooks/useGoals.js';
@@ -45,7 +48,8 @@ function App(){
     </div>
     <div className="app">
       <Routes>
-        <Route path='/' element={<Dashboard/>}/>
+        <Route path='/' element={<Register/>}/>
+        <Route path='/login' element={<Login/>}/>
         <Route path='/notes' element={<Notes goBack={goBack}/>}/>
         <Route path='/tasks' element={<Tasks goBack={goBack}/>}/>
         <Route path= '/goals' element={<Goals goBack={goBack}/>}/>
